@@ -2,7 +2,7 @@
 
 import { useAudioService } from "@/lib/audio-service"
 import { motion, AnimatePresence } from "framer-motion"
-import { Pause, Play, Maximize2, Loader2 } from "lucide-react"
+import { Pause, Play, Maximize2 } from "lucide-react"
 
 interface FloatingAudioPlayerProps {
   onExpand: () => void
@@ -10,7 +10,7 @@ interface FloatingAudioPlayerProps {
 }
 
 export default function FloatingAudioPlayer({ onExpand, isDialogOpen }: FloatingAudioPlayerProps) {
-  const { isPlaying, isLoading, togglePlay } = useAudioService()
+  const { isPlaying, togglePlay } = useAudioService()
 
   if (isDialogOpen) return null
 
@@ -26,16 +26,9 @@ export default function FloatingAudioPlayer({ onExpand, isDialogOpen }: Floating
           <div className="flex items-center gap-2 bg-black/60 backdrop-blur-md border border-yellow-400/20 rounded-full p-2 shadow-lg">
             <button
               onClick={togglePlay}
-              disabled={isLoading}
-              className="w-8 h-8 rounded-full bg-yellow-400 flex items-center justify-center hover:bg-yellow-500 transition-colors disabled:opacity-50"
+              className="w-8 h-8 rounded-full bg-yellow-400 flex items-center justify-center hover:bg-yellow-500 transition-colors"
             >
-              {isLoading ? (
-                <Loader2 className="w-4 h-4 text-black animate-spin" />
-              ) : isPlaying ? (
-                <Pause className="w-4 h-4 text-black" />
-              ) : (
-                <Play className="w-4 h-4 text-black ml-0.5" />
-              )}
+              {isPlaying ? <Pause className="w-4 h-4 text-black" /> : <Play className="w-4 h-4 text-black ml-0.5" />}
             </button>
             <button
               onClick={onExpand}

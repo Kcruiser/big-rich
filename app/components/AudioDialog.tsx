@@ -1,8 +1,14 @@
 "use client"
 
 import { Dialog, DialogContent } from "@/components/ui/dialog"
+import { Jost } from "next/font/google"
 import AudioPlayer from "./AudioPlayer"
-import { DialogDescription } from "@/components/ui/dialog"
+import { useAudioService } from "@/lib/audio-service" // Updated import
+
+const jost = Jost({
+  weight: ["400"],
+  subsets: ["latin"],
+})
 
 interface AudioDialogProps {
   isOpen: boolean
@@ -10,16 +16,12 @@ interface AudioDialogProps {
 }
 
 export default function AudioDialog({ isOpen, onOpenChange }: AudioDialogProps) {
+  const { isPlaying } = useAudioService() // Updated hook usage
+
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent
-        className="w-[calc(100vw-2rem)] sm:w-[1000px] max-h-[90vh] overflow-hidden p-0 bg-black/30 backdrop-blur-md border border-yellow-400/20"
-        aria-describedby="audio-dialog-description"
-      >
-        <DialogDescription id="audio-dialog-description" className="sr-only">
-          Audio visualizer and player controls for the Big Rich theme song
-        </DialogDescription>
-        <div className="p-8 sm:p-12">
+      <DialogContent className="w-[calc(100vw-2rem)] sm:w-[600px] p-0 bg-black/30 backdrop-blur-md border border-yellow-400/20">
+        <div className="p-6">
           <AudioPlayer />
         </div>
       </DialogContent>

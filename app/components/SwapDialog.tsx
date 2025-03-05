@@ -1,6 +1,6 @@
 "use client"
 
-import { Dialog, DialogContent, DialogDescription } from "@/components/ui/dialog"
+import { Dialog, DialogContent } from "@/components/ui/dialog"
 
 interface SwapDialogProps {
   isOpen: boolean
@@ -10,10 +10,7 @@ interface SwapDialogProps {
 export default function SwapDialog({ isOpen, onClose }: SwapDialogProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-[624px] p-0 bg-transparent" aria-describedby="swap-dialog-description">
-        <DialogDescription id="swap-dialog-description" className="sr-only">
-          Swap interface for trading PLS tokens for RICH tokens
-        </DialogDescription>
+      <DialogContent className="max-w-[624px] p-0 bg-transparent">
         <div className="relative w-full h-[600px] sm:h-[720px]">
           <iframe
             src="https://widget.piteas.io/#/swap?inputCurrency=PLS&outputCurrency=0x33779a40987F729a7DF6cc08B1dAD1a21b58A220&theme=dark&exactField=input&exactAmount=1000000"
