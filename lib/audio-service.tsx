@@ -60,6 +60,16 @@ export function AudioServiceProvider({ children }: { children: ReactNode }) {
       audioRef.current.pause()
       setIsPlaying(false)
     } else {
+      console.log("Loading audio from:", audioRef.current.src)
+
+      // Wait for audio to be loaded
+      await new Promise((resolve, reject) => {
+        if (!audioRef.current) return reject("No audio element")
+        audioRef.current.addEventListener("canplaythrough", resolve, { once: true })
+        audioRef.current.addEventListener("error", (e) => reject(e.currentTarget), { once: true })
+        audioRef.current.load()
+      })
+
       await audioContext.resume()
       await audioRef.current.play()
       setIsPlaying(true)
